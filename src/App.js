@@ -1,23 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
-
+import axios from 'axios'
+import {useState} from 'react';
 function App() {
+  const[state,setState]=useState([])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <h1> API DATA FETCH USING AXIOS </h1>
+    <button onClick={()=>{
+      axios.get('https://jsonplaceholder.typicode.com/posts').then((respone)=>{
+        console.log(respone.data)
+        setState(respone.data)
+      })
+    }}>Click me</button>
+    {state.map((obj,index)=>(
+      
+        <div>
+          <h1>{index+1}</h1>
+          <h2>{obj.title}</h2>
+          <h1>{obj.body}</h1>
+
+
+        </div>
+      
+    ))}
     </div>
   );
 }
